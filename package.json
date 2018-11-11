@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "quick-commit": "git add . && git commit -m 'again' && git push heroku master"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/dizzyspell/crit-fail/issues"
   },
-  "homepage": "https://github.com/dizzyspell/crit-fail#readme"
+  "homepage": "https://github.com/dizzyspell/crit-fail#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "pg": "^7.6.1"
+  }
 }
