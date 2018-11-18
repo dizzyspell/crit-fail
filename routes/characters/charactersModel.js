@@ -33,7 +33,7 @@ class Character {
 
 		this.recalculate()
 
-		this.index = CachedCharacters.push(this)-1
+		this.cacheIndex = CachedCharacters.push(this)-1
 
 		this.startLife(10*MINUTES)
 	}
@@ -50,7 +50,7 @@ class Character {
 			this.abilities[a] = ability
 		}
 
-		this.proficiencyBonus = 2
+		if (this.description.level) this.proficiencyBonus = Math.floor((this.description.level-1)/4)+2
 
 		for (let s in this.skills) {
 			let skill = this.skills[s]
@@ -61,6 +61,9 @@ class Character {
 			this.skills[s] = skill
 		}
 
+		if(this.battlestats) {
+			this.battlestats.ac.total = this.battlestats.ac.base + this.abilities.dexterity.modifier
+		}
 	}
 
 	async update(column, jsonString) {
@@ -74,7 +77,7 @@ class Character {
 
 	async startLife(lifeTime) {
 		setTimeout(() => {
-			CachedCharacters.splice(this.index, 1)
+			CachedCharacters.splice(this.cacheIndex, 1)
 		}, lifeTime)
 	}
 }

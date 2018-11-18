@@ -3,6 +3,9 @@ const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: true
 })
+const {logMessage} = require('./logger')
+
+let DbBusy = false
 
 const db = {
     characterIds: [],
@@ -20,7 +23,6 @@ const db = {
     ],
 
     fetch: async function () {
-        //console.log('fetching...')
         let characterIds = await this.query(`SELECT "characterId" FROM characters;`)
         this.characterIds = characterIds.map(row => row.characterId)
         return this
@@ -28,7 +30,7 @@ const db = {
 
     prefetch: async function(res, req, next) {
         try {
-            //console.log('prefetching some data...')
+            logMessage('prefetching some data...')
             await db.fetch()
             next()
         } catch (err) {
@@ -39,13 +41,25 @@ const db = {
 
     query: async function (queryText) {
         try {
-            const client = await pool.connect();
-            const result = await client.query(queryText);
-            return (result) ? result.rows : null;
-            client.release();
+            if (!DbBusy) {
+                DbBusy = true
+                const client = await pool.connect();
+                const result = await client.query(queryText);
+                client.release();
+                DbBusy = false
+                return (result) ? result.rows : null;
+            } else {
+                logMessage('db busy, waiting to query : ' + queryText)
+                await this.timeout(100)
+                return await this.query(queryText)
+            }
         } catch (err) {
             throw err;
         }
+    },
+
+    timeout: function (ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 }
 

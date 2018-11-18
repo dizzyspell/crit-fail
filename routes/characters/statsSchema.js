@@ -61,6 +61,39 @@ module.exports = {
 		}
 	},
 
+	battlestats: {
+		"type": "object",
+		"required": ["ac", "speed", "current hp", "max hp", "hit dice"],
+		"properties": {
+			"ac":{ 
+				"type": "object", 
+				"required": ["base"], 
+				"properties": { 
+					"base": { "type": "integer" }
+				} 
+			}, 
+			"speed":{ "type": "integer" }, 
+			"current hp":{ "type": "integer" }, 
+			"max hp":{ "type": "integer" }, 
+			"hit dice":{ "type": "string" }
+		}
+	},
+
+	notes: {
+		"type": "object",
+		"properties": {
+			"height": { "type": "string" },
+			"weight": { "type": "string" },
+			"age": { "type": "string" },
+			"eyes": { "type": "string" },
+			"skin": { "type": "string" },
+			"hair": { "type": "string" },
+			"appearance": { "type": "string" },
+			"backstory": { "type": "string" },
+			"misc": { "type": "string" }
+		}
+	},
+
 	inventory: {
 		"type": "array"
 	},
@@ -75,13 +108,5 @@ module.exports = {
 
 	proficiencies: {
 		"type": "array"
-	},
-
-	battlestats: {
-		"type": "object"
-	},
-
-	notes: {
-		"type": "object"
-	},
+	}
 }
