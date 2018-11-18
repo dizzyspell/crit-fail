@@ -24,6 +24,8 @@ const skillAbility = {
 	"survival": "wisdom"
 }
 
+const MINUTES = 60000
+
 class Character {
 	constructor(fetchedJson) {
 		let character = JSON.parse(JSON.stringify(fetchedJson))
@@ -31,7 +33,9 @@ class Character {
 
 		this.recalculate()
 
-		CachedCharacters.push(this)
+		this.index = CachedCharacters.push(this)-1
+
+		this.startLife(10*MINUTES)
 	}
 
 	recalculate() {
@@ -66,6 +70,12 @@ class Character {
 		this.recalculate()
 
 		return this
+	}
+
+	async startLife(lifeTime) {
+		setTimeout(() => {
+			CachedCharacters.splice(this.index, 1)
+		}, lifeTime)
 	}
 }
 
