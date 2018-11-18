@@ -21,7 +21,11 @@ module.exports = {
 		"type": "object",
 		"required": ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"], 
 		"additionalProperties": {
-			"type": "integer" 
+			"type": "object",
+			"required": ["score"],
+			"properties": {
+				"score": { "type": "integer" }
+			} 
 		}
 	},
 
