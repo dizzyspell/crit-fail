@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "git push heroku master && git push ORIGIN master",
     "pgweb": "heroku config:get DATABASE_URL | xargs pgweb --url"
   },
@@ -12,15 +11,17 @@
     "type": "git",
     "url": "https://github.com/dizzyspell/crit-fail.git"
   },
-  "author": "",
+  "author": "Zaya PS",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/dizzyspell/crit-fail/issues"
   },
   "homepage": "https://github.com/dizzyspell/crit-fail#readme",
   "dependencies": {
+    "ajv": "^6.5.5",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "http-errors": "^1.7.1",
     "pg": "^7.6.1"
   }
 }
