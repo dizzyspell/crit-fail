@@ -14,6 +14,7 @@ const db = {
         "description",
         "abilities",
         "skills",
+        "savingThrows",
         "inventory",
         "spells",
         "features",
@@ -49,7 +50,7 @@ const db = {
                 DbBusy = false
                 return (result) ? result.rows : null;
             } else {
-                logMessage('db busy, waiting to query : ' + queryText)
+                logMessage(`db busy; staging query ${queryText.slice(0,21)}...`)
                 await this.timeout(100)
                 return await this.query(queryText)
             }

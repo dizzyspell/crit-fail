@@ -61,6 +61,19 @@ module.exports = {
 		}
 	},
 
+	savingThrows: {
+		"type": "object",
+		"required": ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"],
+		"additionalProperties": {
+			"type": "object",
+			"required": ["proficient", "customBonus"],
+			"properties": {
+				"proficient": {"type": "boolean"}, 
+				"customBonus": {"type": "integer"}
+			}
+		}
+	},
+
 	battlestats: {
 		"type": "object",
 		"required": ["ac", "speed", "current hp", "max hp", "hit dice"],
@@ -90,6 +103,7 @@ module.exports = {
 			"hair": { "type": "string" },
 			"appearance": { "type": "string" },
 			"backstory": { "type": "string" },
+			"personality": { "type": "string" },
 			"misc": { "type": "string" }
 		}
 	},

@@ -1,6 +1,6 @@
 const {error, respond} = require('./response')
 const Ajv = require('ajv')
-const ajv = new Ajv()
+const ajv = new Ajv({ useDefaults: true })
 const {logMessage} = require('./logger')
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
 		return (req, res, next) => {
 			let validate = ajv.compile(schema);
 			let valid = validate(req.body);
-			const errors = validate.errors.map( error => error.message )
+			const errors = validate.errors? validate.errors.map( error => error.message ) : null
 			if (error._400(!valid, next, errors)) return
 			else {
 				logMessage('passed JSON validation')

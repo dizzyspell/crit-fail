@@ -17,8 +17,10 @@ app
 	.use( bodyParser.json() )
 
 const characters = require('./routes/characters/charactersRouter')
+const users = require('./routes/users/usersRouter')
 
 app.use('/characters', characters)
+app.use('/users', users)
 
 // homepage
 app.get('/', function (req, res, next) {
